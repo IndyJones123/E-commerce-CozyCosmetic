@@ -183,7 +183,8 @@ class Home extends CI_Controller {
             if($user){
                 if(password_verify($password, $user['password'])){
                   $data = [
-                    'id' => $user['id']
+                    'id' => $user['id'],
+					'email' => $email
 				  ];
     
                 if($cookie != NULL){
@@ -265,4 +266,17 @@ class Home extends CI_Controller {
             $this->load->view('register');
         }
     }
+
+	public function logout(){
+		$this->load->view("loginUser");
+		session_unset();
+        session_destroy();
+        delete_cookie('abcdefg');
+    }
+
+	public function historypemesanan()
+	{
+		$email = $this->session->userdata('email');
+		
+	}
 }

@@ -41,6 +41,23 @@ $settingss = $this->db->get('settings')->row_array();
         <?php } ?>
       </a>
       <br>
+        <?php if($this->session->userdata('user')){ ?>
+          <i class="fa fa-user ml-3"></i>
+          <div class="dropdown">
+    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Profile
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a href="<?= base_url(); ?>profile" class="dropdown-item">Profile</a>
+        <a href="<?= base_url(); ?>historypemesanan" class="dropdown-item">History Pemesanan</a>
+        <a href="<?= base_url(); ?>users/logout" class="dropdown-item">Logout</a>
+    </div>
+</div>
+        <?php }else{ ?>
+          <i class="fa fa-user"></i>
+          <a href="<?= base_url(); ?>login/user" class="text-light navbar-cart-inform ml-3">Login</a>
+        <?php } ?>
+
       <br>
     </div>
   </div>
