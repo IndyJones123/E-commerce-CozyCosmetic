@@ -32,6 +32,8 @@ class Administrator extends CI_Controller {
                 }
             }
         }
+                
+
     }
 
     public function index(){
@@ -1442,6 +1444,7 @@ class Administrator extends CI_Controller {
         session_unset();
         session_destroy();
         delete_cookie('djehbicd');
+        delete_cookie('abcdefg');
         redirect(base_url() . 'login/admin');
     }
 

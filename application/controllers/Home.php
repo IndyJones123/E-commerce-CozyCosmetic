@@ -152,4 +152,65 @@ class Home extends CI_Controller {
         }
 	}
 
+	public function loginUser(){
+		$this->load->helper('cookie');
+		if($this->session->userdata('user')){
+			redirect(base_url());
+        }else{
+			$cookie = get_cookie('abcdefg');
+            if($cookie != NULL){
+				$getCookie = $this->db->get_where('user', ['cookie' => $cookie])->row_array();
+                if($getCookie){
+                    $dataCookie = $getCookie;
+                    $dataSession = [
+                        'id' => $dataCookie['id']
+                    ];
+                    $this->session->set_userdataUser('user', true);
+					$this->session->set_userdataUser($dataSession);
+					redirect(base_url());
+                }
+            }
+		}
+        $this->form_validation->set_rules('email', 'email', 'required', ['required' => 'email wajib diisi']);
+        if($this->form_validation->run() == false){
+          $this->load->view('loginUser');
+        }else{
+            $email = $this->input->post('email');
+            $password = $this->input->post('password');
+            $cookie = $this->input->post('cookie');
+            $user = $this->db->get_where('user', ['email' => $email])->row_array();
+
+            if($user){
+                if(password_verify($password, $user['password'])){
+                  $data = [
+                    'id' => $user['id']
+				  ];
+    
+                if($cookie != NULL){
+                    $key = random_string('alnum', 64);
+                    set_cookie('abcdefg', $key, 3600*24*30*12);
+                    $this->db->set('cookie', $key);
+                    $this->db->update('user');
+                }
+                                
+                $this->session->set_userdata('user', true);
+                $this->session->set_userdata($data);
+
+                redirect(base_url());
+
+                }else{
+                  $this->session->set_flashdata('failed', '<div class="alert alert-danger" role="alert">
+                              Password salah!
+                            </div>');
+                            redirect(base_url() . 'login/user');
+                }
+              }else{
+              $this->session->set_flashdata('failed', '<div class="alert alert-danger" role="alert">
+                Username salah!
+              </div>');
+              redirect(base_url() . 'login/user');
+            }
+        }
+	}
+
 }
