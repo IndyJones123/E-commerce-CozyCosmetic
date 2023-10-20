@@ -39,10 +39,10 @@
               <div class="col-lg-12">
                 <div class="p-5">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Login User!</h1>
+                    <h1 class="h4 text-gray-900 mb-4">Register User!</h1>
                   </div>
                   <?php echo $this->session->flashdata('failed'); ?> 
-                  <form class="user" action="<?= base_url(); ?>login/user" method="post">
+                  <form class="user" action="<?= base_url(); ?>register/user" method="post">
                     <div class="form-group">
                       <label for="email">Email</label>
                       <input type="text" autocomplete="off" id="email" name="email" required class="form-control">
@@ -51,14 +51,11 @@
                       <label for="password">Password</label>
                       <input type="password" autocomplete="off" id="password" name="password" required class="form-control">
                     </div>
-                    <div class="form-group">
-                      <div class="custom-control custom-checkbox small">
-                        <input type="checkbox" class="custom-control-input" id="cookie" name="cookie">
-                        <label class="custom-control-label" for="cookie">Ingat Saya</label>
-                      </div>
+                    <div class="form-group" hidden>
+                      <input type="cookie" autocomplete="off" value="abcdefg" id="cookie" name="cookie" required class="form-control">
                     </div>
-                    <p class="">Belum Punya Akun? <a href="<?= base_url(); ?>register/user" class="">Register </a> </p>
-                    <button type="submit" class="btn rounded-pill btn-block btn-info">Login</button>
+                    <p class="">Sudah Punya Akun? <a href="<?= base_url(); ?>login/user" class="">Login </a> </p>
+                    <button type="submit" class="btn rounded-pill btn-block btn-info">Register</button>
                   </form>
                 </div>
               </div>

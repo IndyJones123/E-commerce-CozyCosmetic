@@ -213,4 +213,56 @@ class Home extends CI_Controller {
         }
 	}
 
+	public function register() {
+        // Check if the request method is POST
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // The controller is accessed via a POST request
+            // Load necessary libraries and models
+            $this->load->helper('cookie');
+
+            // Get input data from the form
+            $email = $this->input->post('email');
+            $password = $this->input->post('password');
+            $cookie = $this->input->post('cookie');
+
+            // Check if required input fields are empty
+            if (empty($email) || empty($password) || empty($cookie)) {
+                // Display an alert using JavaScript
+                echo '<script>alert("Please fill in all required fields.");</script>';
+                // Redirect to the "register" view
+                $this->load->view('register');
+            } else {
+				$query = $this->db->get_where('user', array('email' => $email));
+
+				if(!$query){
+				// Hash the password
+                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+				
+                // Create an array to store the user data
+                $user_data = array(
+                    'email' => $email,
+                    'password' => $hashed_password,
+                    'cookie' => $cookie
+                );
+
+                // Insert the user data into the "user" table using the model
+                $this->db->insert('user', $user_data);
+
+				echo '<script>alert("Registration Succes. Kamu Sekarang Bisa log in.");</script>';
+				$this->load->view('loginUser');
+				}
+				else{
+				echo '<script>alert("Registration Gagal. Email Kamu Telah Digunakan.");</script>';
+				$this->load->view('register');
+				}
+				
+                // Redirect to a success page or perform any other action
+                
+            }
+        } else {
+            // The controller is accessed without a POST request
+            // Load the "register" view
+            $this->load->view('register');
+        }
+    }
 }

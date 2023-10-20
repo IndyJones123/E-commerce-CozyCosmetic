@@ -8,6 +8,7 @@ $route['404'] = 'home/notfound';
 $route['subscribe-email'] = 'home/subscribe_email';
 $route['unsubscribe-email'] = 'home/unsubscribe_email';
 $route['login/admin'] = 'home/login';
+$route['register/user'] = "home/register";
 $route['login/user'] = 'home/loginUser';
 $route['snap'] = 'snap';
 $route['transaction'] = 'transaction';
