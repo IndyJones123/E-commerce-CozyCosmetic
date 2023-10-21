@@ -193,7 +193,6 @@ $rekening = $this->db->get('rekening');
                 language: 'id'
             })
             const id = $(this).val();
-            console.log(id)
             $.ajax({
                 url: "<?= base_url(); ?>payment/getLocation",
                 type: "post",
@@ -258,7 +257,6 @@ $rekening = $this->db->get('rekening');
                 },
                 success: function(data){
                     let id = data;
-                    console.log(id);
                     $("#paymentSendingPriceOngkir").text("Rp"+number_format(id).split(",").join("."));
                     const price = "<?= $this->cart->total(); ?>";
                     const total = parseInt(price) + parseInt(id);

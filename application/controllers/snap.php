@@ -26,7 +26,7 @@ class Snap extends CI_Controller {
 		$this->load->model('Payment_model');
 		$this->load->library('midtrans');
 		$this->midtrans->config($params);
-		$this->load->helper('url');	
+		$this->load->helper('url');
     }
 
     public function index()
@@ -36,18 +36,19 @@ class Snap extends CI_Controller {
 
     public function token()
     {
-		
+		$invoice_id = $this->input->get('invoice');
+		$invoice = $this->db->get_where('invoice', ['invoice_code' => $invoice_id])->row_array();	
 		// $data = $this->payment_model->succesfully();
 		// Required
 		$transaction_details = array(
 		  'order_id' => rand(),
-		  'gross_amount' => $this->cart->total(), // no decimal allowed for creditcard
+		  'gross_amount' => $invoice['total_all'], // no decimal allowed for creditcard
 		);
 
 		// Optional
 		$item1_details = array(
 		  'id' => 'a1',
-		  'price' => $this->cart->total(),
+		  'price' => $invoice['total_all'],
 		  'quantity' => 1,
 		  'name' => "Apple"
 		);

@@ -272,45 +272,22 @@ class Payment extends CI_Controller {
         $list .= '*Alamat:*%0A';
         $list .= $data['address'] . '%0A%0A';
 
-        // $this->cart->destroy();
-        // $params = array('server_key' => 'SB-Mid-server-3WBWVyUJlMcWNM43sZvdZjjB', 'production' => false);
-		// $this->midtrans->config($params);
-
-        // $transaction_details = array(
-		//   'order_id' => $data['invoice'],
-		//   'gross_amount' =>  $totalall, // no decimal allowed for creditcard
-		// );
-
-        // // $item1_details = array(
-		// //   'id' => $data[''],
-		// //   'price' => $this->cart->total() ,
-		// // );
-
-        // // $item_details = array ($item1_details);
-
-        // $time = time();
-        // $custom_expiry = array(
-        //     'start_time' => date("Y-m-d H:i:s O",$time),
-        //     'unit' => 'minute', 
-        //     'duration'  => 15
-        // );
-
-        // $transaction_data = array(
-        //     'transaction_details'=> $transaction_details,
-        //     // 'item_details'       => $item_details,
-        //     // 'customer_details'   => $customer_details,
-        //     // 'credit_card'        => $credit_card,
-        //     'expiry'             => $custom_expiry
-        // );
-        $test = "alfian";
-
-		// error_log(json_encode($transaction_data));
-		// $snapToken = $this->midtrans->getSnapToken($transaction_data);
-		// error_log($snapToken);
-		// echo $snapToken;
-        $this->load->view("checkout_snap", $test);
+        $invoice = $this->input->get('invoice');
+        if ($invoice != null) {
+            $this->db->where('invoice_code', $invoice);
+            $this->db->delete('invoice');
+        }
+        
+        $this->load->helper('url');
+        redirect('/payment?invoice=' . $data['invoice']);
     }
 
+    public function checkout(){
+        $this->load->helper('url');
+        $invoice = $this->input->get('invoice');
 
+        $data = $this->db->get_where('invoice', ['invoice_code' => $invoice])->row_array();
 
+        $this->load->view('checkout_snap', $data);
+    }
 }

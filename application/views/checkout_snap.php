@@ -7,27 +7,16 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   </head>
   <body>
-    <?= var_dump($test); ?>
-     <h3 class="title">Terima Kasih Telah Berbelanja di <?= $this->Settings_model->general()["app_name"]; ?></h3>
-            <hr>
-            <h4>Kode Pesanan Anda adalah <?= $test ?></h4>
-            <p>Kami telah mengirimkan email kepada Anda yang berisi tagihan pesanan. Cek folder Inbox atau Spam untuk melihat email yang kami kirim.</p>
-            <hr>
-            <strong>Mohon untuk melakukan pembayaran sebesar <h5 class="text-primary">Rp <?= number_format($invoice_id['total'],0,",","."); ?></h5> ke rekening dibawah ini (pilih salah satu): </strong>
-    
-    <form id="payment-form" method="post" action="<?=base_url()?>/snap/finish">
-      <input type="hidden" name="result_type" id="result-type" value=""></div>
-      <input type="hidden" name="result_data" id="result-data" value=""></div>
-    </form>
-    
-    <button id="pay-button">Pay!</button>
+    <div class="">
+      <div id="snap-container"></div>
+    </div>
     <script type="text/javascript">
   
-    $('#pay-button').click(function (event) {
+    $(document).ready(function () {
       event.preventDefault();
     
     $.ajax({
-      url: '<?=base_url()?>snap/token',
+      url: '<?=base_url()?>snap/token?invoice=<?=$this->input->get('invoice')?>',
       cache: false,
 
       success: function(data) {
@@ -45,8 +34,8 @@
           //resultData.innerHTML = JSON.stringify(data);
         }
 
-        snap.pay(data, {
-          
+        window.snap.embed(data, {
+          embedId: 'snap-container',
           onSuccess: function(result){
             changeResult('success', result);
             console.log(result.status_message);
@@ -63,6 +52,7 @@
             console.log(result.status_message);
             $("#payment-form").submit();
           }
+
         });
       }
     });
