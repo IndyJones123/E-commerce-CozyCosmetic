@@ -272,7 +272,7 @@ if ($err) {
                 </table>
             </div>
             <hr>
-            <?php if($invoice['send'] == 0 && $invoice['process'] == 0){ ?>
+            <?php if($invoice['send'] == 0 && $invoice['process'] == 1){ ?>
             <a href="<?= base_url(); ?>administrator/finish_orderan/<?= $invoice['invoice_code']; ?>" onclick="return confirm('Yakin ingin menyelesaikan pesanan?');" class="btn rounded-pill btn-info btn-sm">Selesai</a>
             <?php } ?>
         </div>

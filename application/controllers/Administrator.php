@@ -146,16 +146,26 @@ class Administrator extends CI_Controller {
     }
 
     public function finish_orderan($id){
+        $this->db->trans_start();
         $this->db->set('process', 1);
         $this->db->set('send', 1);
         $this->db->where('invoice_code', $id);
         $this->db->update('invoice');
+        
+        $transaction = $this->db->get_where('transaction', ['id_invoice' => $id]);
+        $product = $this->db->get_where('products', ['title' => $transaction->result_array()[0]['product_name']]);
+        $this->db->set('stock', $product->result_array()[0]['stock'] - $transaction->result_array()[0]['qty']);
+        $this->db->where('title', $transaction->result_array()[0]['product_name']);
+        $this->db->update('products');
+        $this->db->trans_complete();
+
         $this->session->set_flashdata('upload', "<script>
-            swal({
+        swal({
             text: 'Selesai',
             icon: 'success'
-            });
+        });
         </script>");
+        
         redirect(base_url() . 'administrator/order/'.$id);
     }
 

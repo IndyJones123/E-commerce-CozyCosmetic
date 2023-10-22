@@ -1,4 +1,8 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+
+use phpDocumentor\Reflection\DocBlock\Tags\Var_;
+
+ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Snap extends CI_Controller {
 
@@ -22,7 +26,7 @@ class Snap extends CI_Controller {
 	public function __construct()
     {
         parent::__construct();
-        $params = array('server_key' => 'SB-Mid-server-3WBWVyUJlMcWNM43sZvdZjjB', 'production' => false);
+        $params = array('server_key' => 'Mid-server-I-BagyeJ2helsNewkXK_BKqW', 'production' => true);
 		$this->load->model('Payment_model');
 		$this->load->library('midtrans');
 		$this->midtrans->config($params);
@@ -37,55 +41,48 @@ class Snap extends CI_Controller {
     public function token()
     {
 		$invoice_id = $this->input->get('invoice');
-		$invoice = $this->db->get_where('invoice', ['invoice_code' => $invoice_id])->row_array();	
-		// $data = $this->payment_model->succesfully();
+		$invoice = $this->db->get_where('invoice', ['invoice_code' => $invoice_id])->row_array();
+		$cart = $this->cart->contents();
+		$array = [];
+
+		foreach ($cart as $key => $value) {
+			$array[] = $value;
+		}
+
 		// Required
 		$transaction_details = array(
 		  'order_id' => rand(),
-		  'gross_amount' => $invoice['total_all'], // no decimal allowed for creditcard
+		  'gross_amount' => floatval($invoice['total_all']), // no decimal allowed for creditcard
 		);
 
-		// Optional
-		$item1_details = array(
-		  'id' => 'a1',
-		  'price' => $invoice['total_all'],
-		  'quantity' => 1,
-		  'name' => "Apple"
+		$item = [];
+
+		foreach ($array as $key => $value) {
+			$item[] = array(
+				'id' => $value['id'],
+				'price' => $value['price'],
+				'quantity' => $value['qty'],
+				'name' => $value['name']
+			);
+		}
+
+		$ongkir_details = array(
+			'id' => 'ongkir',
+			'price' => $invoice['ongkir'],
+			'quantity' => 1,
+			'name' => 'Ongkir'
 		);
 
-		// Optional
-		$item_details = array ($item1_details);
+		$item[] = $ongkir_details;
 
 		// Optional
-		$billing_address = array(
-		  'first_name'    => "Andri",
-		  'last_name'     => "Litani",
-		  'address'       => "Mangga 20",
-		  'city'          => "Jakarta",
-		  'postal_code'   => "16602",
-		  'phone'         => "081122334455",
-		  'country_code'  => 'IDN'
-		);
-
-		// Optional
-		$shipping_address = array(
-		  'first_name'    => "Obet",
-		  'last_name'     => "Supriadi",
-		  'address'       => "Manggis 90",
-		  'city'          => "Jakarta",
-		  'postal_code'   => "16601",
-		  'phone'         => "08113366345",
-		  'country_code'  => 'IDN'
-		);
+		$item_details = $item;
 
 		// Optional
 		$customer_details = array(
-		  'first_name'    => "Andri",
-		  'last_name'     => "Litani",
+		  'first_name'    => $invoice['name'],
 		  'email'         => "andri@litani.com",
-		  'phone'         => "081122334455",
-		  'billing_address'  => $billing_address,
-		  'shipping_address' => $shipping_address
+		  'phone'         => $invoice['telp'],
 		);
 
 		// Data yang akan dikirim untuk request redirect_url.

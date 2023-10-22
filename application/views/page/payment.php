@@ -1,8 +1,8 @@
 <html>
     <head>
     <script type="text/javascript"
-            src="https://app.sandbox.midtrans.com/snap/snap.js"
-            data-client-key="SB-Mid-client-qObNzMsln4JVIpah"></script>
+    src="https://app.midtrans.com/snap/snap.js"
+    data-client-key="Mid-client-COyOmp_Y2SSGqo5x"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     </head>
     <body>
@@ -191,8 +191,8 @@
             </form>
         </div>
         </form>
+
 <script type="text/javascript">
-    
     const regencyId = document.getElementById('regency-id').innerHTML;
     const currentUrl = window.location.href;
     const url = new URL(currentUrl);
@@ -212,8 +212,7 @@
     });
 
     $(document).ready(function() {
-
-        if (invoice) {
+        if (invoice !== null) {
             $.ajax({
                 url: '<?=base_url()?>snap/token?invoice=' + invoice,
                 cache: false,

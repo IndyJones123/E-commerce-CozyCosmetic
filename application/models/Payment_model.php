@@ -111,6 +111,7 @@ class Payment_model extends CI_Model {
         $zipcode = $this->input->post('zipcode', true);
         $address = $this->input->post('address', true);
         $courier = $this->input->post('paymentSelectKurir', true);
+        $email = $this->session->userdata('email');
         $service1 = explode("-", $courier);
         $service2 = $service1[2];
         $ongkir = $service1[0];
@@ -142,6 +143,7 @@ class Payment_model extends CI_Model {
             'invoice_code' => $invoice,
             'label' => 'true',
             'name' => $name,
+            'email' => $email,
             'telp' => $telp,
             'province' => $province,
             'regency' => $regency,

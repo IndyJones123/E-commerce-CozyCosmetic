@@ -289,6 +289,17 @@ class Payment extends CI_Controller {
         redirect('/payment?invoice=' . $data['invoice']);
     }
 
+    public function transactionSuccess() {
+        $invoice = $this->input->get('invoice');
+        if ($invoice != null) {
+            $this->db->where('invoice_code', $invoice);
+            $this->db->update('invoice', ['process' => 1]);
+
+            $this->load->helper('url');
+            redirect('/historypemesanan');
+        }
+    }
+
     public function checkout(){
         $this->load->helper('url');
         $invoice = $this->input->get('invoice');
