@@ -50,7 +50,7 @@
 								<td>COD (Cash of Delivery)</td>
 							<?php }else{ ?>
 								<?php if($data['process'] == 0 && $data['send'] == 0){ ?>
-									<td>Belum di proses</td>
+									<td>Menunggu Pembayaran</td>
 								<?php }else if($data['process'] == 1 && $data['send'] == 0){ ?>
 									<td>Sedang di proses</td>
 								<?php }else{ ?>

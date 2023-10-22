@@ -292,7 +292,7 @@ class Home extends CI_Controller {
             $data['orders'] = $this->Order_model->getOrderByInvoice($id);
             $data['invoice'] = $this->Order_model->getDataInvoice($id);
             $this->load->view('templates/header_user', $data);
-            $this->load->view('administrator/detail_order', $data);
+            $this->load->view('detail_order', $data);
             $this->load->view('templates/footer_admin');
         }else{
             redirect(base_url() . 'administrator/orders');
