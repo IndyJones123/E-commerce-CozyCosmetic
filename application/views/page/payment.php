@@ -2,7 +2,7 @@
     <head>
     <script type="text/javascript"
     src="https://app.midtrans.com/snap/snap.js"
-    data-client-key="Mid-client-COyOmp_Y2SSGqo5x"></script>
+    data-client-key="Mid-client-KoICJaU9jpSylJ5G"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     </head>
     <body>

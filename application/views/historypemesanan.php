@@ -4,7 +4,7 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 		<script type="text/javascript"
 		src="https://app.midtrans.com/snap/snap.js"
-		data-client-key="Mid-client-COyOmp_Y2SSGqo5x"></script>
+		data-client-key="Mid-client-KoICJaU9jpSylJ5G"></script>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	</head>
 	<body>
