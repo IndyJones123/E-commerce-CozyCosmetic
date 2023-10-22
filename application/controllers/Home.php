@@ -10,6 +10,7 @@ class Home extends CI_Controller {
 		$this->load->model('Products_model');
 		$this->load->model('Settings_model');
 		$this->load->model('Promo_model');
+        
 	}
 
 	public function index(){
@@ -276,7 +277,10 @@ class Home extends CI_Controller {
 
 	public function historypemesanan()
 	{
+        $this->load->model('Order_model');
 		$email = $this->session->userdata('email');
-		
+        $data = $this->Order_model->getOrdersByEmail($email);
+		$this->load->view('templates/header_user', $data);
+        $this->load->view('historypemesanan', $data);
 	}
 }
