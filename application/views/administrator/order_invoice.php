@@ -342,6 +342,9 @@ if ($err) {
                         <th>Rp <?= number_format($invoice['total_all'],0,",","."); ?></th>
                     </tr>
                 </table>
+                            <?php if($invoice['send'] == 0 && $invoice['process'] == 1){ ?>
+            <a href="<?= base_url(); ?>administrator/finish_orderan/<?= $invoice['invoice_code']; ?>" onclick="return confirm('Yakin ingin menyelesaikan pesanan?');" class="btn rounded-pill btn-info btn-sm">Selesai</a>
+            <?php } ?>
             </div>
         </div>
     </div>

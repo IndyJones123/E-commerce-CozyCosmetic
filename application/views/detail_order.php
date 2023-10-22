@@ -270,6 +270,7 @@ if ($err) {
                         <th>Rp <?= number_format($invoice['total_all'],0,",","."); ?></th>
                     </tr>
                 </table>
+                
             </div>
             <hr>
         </div>

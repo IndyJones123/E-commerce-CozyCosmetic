@@ -272,10 +272,15 @@ if ($err) {
                 </table>
             </div>
             <hr>
-            <?php if($invoice['send'] == 0 && $invoice['process'] == 1){ ?>
-            <a href="<?= base_url(); ?>administrator/finish_orderan/<?= $invoice['invoice_code']; ?>" onclick="return confirm('Yakin ingin menyelesaikan pesanan?');" class="btn rounded-pill btn-info btn-sm">Selesai</a>
-            <?php } ?>
+<?php if ($invoice['send'] == 0 && $invoice['process'] == 1) { ?>
+    <form action="<?= base_url(); ?>administrator/finish_orderan/<?= $invoice['invoice_code']; ?>" method="post">
+        <input type="text" name="resi" placeholder="Nomor Resi" required>
+        <button type="submit" onclick="return confirm('Yakin ingin menyelesaikan pesanan?');" class="btn rounded-pill btn-info btn-sm">Selesai</button>
+    </form>
+<?php } ?>
+
         </div>
     </div>
 </div>
 <!-- /.container-fluid -->
+

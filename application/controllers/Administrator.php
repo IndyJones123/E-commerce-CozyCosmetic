@@ -165,6 +165,7 @@ class Administrator extends CI_Controller {
             icon: 'success'
         });
         </script>");
+        $this->sending_order($id);
         
         redirect(base_url() . 'administrator/order/'.$id);
     }
@@ -201,6 +202,16 @@ class Administrator extends CI_Controller {
             Pesananmu telah kami kirim. <br/> Nomor Resi: <strong>'.$resi.'</strong> <br/> Jika ada pertanyaan silakan bisa menghubungi kami melalui Whatsapp'.$this->Settings_model->general()["whatsapp"].' atau <a href="https://wa.me/'.$this->Settings_model->general()["whatsappv2"].'">klik disini</a>.</p>
             ');
         $this->email->send();
+
+        //yt
+        $head = "alfianitem999@gmail.com";
+        $buyyer = $buyer['email'];
+        $subject = 'Pemesanan Telah Dikirim '.$id;
+        $massage = 
+            '<p><strong>Halo '.$buyer['name'].'</strong><br>
+            Pesananmu telah kami kirim. <br/> Nomor Resi: <strong>'.$resi.'</strong> <br/> Jika ada pertanyaan silakan bisa menghubungi kami melalui Whatsapp'.$this->Settings_model->general()["whatsapp"].' atau <a href="https://wa.me/'.$this->Settings_model->general()["whatsappv2"].'">klik disini</a>.</p>
+            ';
+        mail($buyyer,$subject,$massage,$head);
         $this->session->set_flashdata('upload', "<script>
             swal({
             text: 'Nomor Resi telah dikirim kepada pembeli melalui email',
