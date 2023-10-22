@@ -236,8 +236,12 @@ class Home extends CI_Controller {
             } else {
 				$query = $this->db->get_where('user', array('email' => $email));
 
-				if(!$query){
+				if($query->num_rows() > 0){
 				// Hash the password
+                 echo '<script>alert("Registration Gagal. Email Kamu Telah Digunakan.");</script>';
+                 echo '<script>window.location.href = "' . base_url() . 'home/register";</script>';
+				}
+				else{
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 				
                 // Create an array to store the user data
@@ -251,11 +255,8 @@ class Home extends CI_Controller {
                 $this->db->insert('user', $user_data);
 
 				echo '<script>alert("Registration Succes. Kamu Sekarang Bisa log in.");</script>';
-				$this->load->view('loginUser');
-				}
-				else{
-				echo '<script>alert("Registration Gagal. Email Kamu Telah Digunakan.");</script>';
-				$this->load->view('register');
+                echo '<script>window.location.href = "' . base_url() . 'home/loginUser";</script>';
+
 				}
 				
                 // Redirect to a success page or perform any other action
@@ -269,10 +270,10 @@ class Home extends CI_Controller {
     }
 
 	public function logout(){
-		$this->load->view("loginUser");
 		session_unset();
         session_destroy();
-        delete_cookie('abcdefg');
+        redirect(base_url() . 'home/loginUser');
+        exit();
     }
 
 	public function historypemesanan()
