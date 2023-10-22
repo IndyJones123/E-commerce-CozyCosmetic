@@ -186,9 +186,10 @@
                 <?php } ?>
             </div>
             <form id="payment-form" method="post" action="<?=base_url()?>/snap/finish">
-            <input type="hidden" name="result_type" id="result-type" value=""></div>
-            <input type="hidden" name="result_data" id="result-data" value=""></div>
+                <input type="hidden" name="result_type" id="result-type" value=""></div>
+                <input type="hidden" name="result_data" id="result-data" value=""></div>
             </form>
+            <form id="transaction-success" method="post"></form>
         </div>
         </form>
 
@@ -197,6 +198,7 @@
     const currentUrl = window.location.href;
     const url = new URL(currentUrl);
     const invoice = url.searchParams.get("invoice");
+	const transactionSuccess = document.getElementById('transaction-success');
 
     $('#pay-button').click(function (event) {
         if (checkRequiredFields()) {
@@ -222,6 +224,8 @@
                         onSuccess: function(result){
                             console.log('success');
                             console.log(result);
+                            $("#transaction-success").attr("action", "<?= base_url(); ?>payment/transactionSuccess?invoice=" + invoice);
+                            $("#transaction-success").submit();
                             $("#payment-form").submit();
                         },
                         onPending: function(result){

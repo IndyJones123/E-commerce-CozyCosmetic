@@ -103,13 +103,13 @@
                         onSuccess: function(result){
                             console.log('success');
                             console.log(result);
+							$("#transaction-success").attr("action", "<?= base_url(); ?>payment/transactionSuccess?invoice=" + invoice);
+							$("#transaction-success").submit();
                             $("#payment-form").submit();
                         },
                         onPending: function(result){
 							console.log('pending');
                             console.log(result);
-							$("#transaction-success").attr("action", "<?= base_url(); ?>payment/transactionSuccess?invoice=" + invoice);
-							$("#transaction-success").submit();
                             $("#payment-form").submit();
                         },
                         onError: function(result){
