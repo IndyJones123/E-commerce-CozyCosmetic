@@ -283,4 +283,18 @@ class Home extends CI_Controller {
 		$this->load->view('templates/header_user', $data);
         $this->load->view('historypemesanan', $data);
 	}
+
+    public function detail_order($id){
+        $this->load->model('Order_model');
+        if($this->Order_model->getDataInvoice($id)){
+            $data['title'] = 'Detail Pesanan - Admin Panel';
+            $data['orders'] = $this->Order_model->getOrderByInvoice($id);
+            $data['invoice'] = $this->Order_model->getDataInvoice($id);
+            $this->load->view('templates/header_user', $data);
+            $this->load->view('administrator/detail_order', $data);
+            $this->load->view('templates/footer_admin');
+        }else{
+            redirect(base_url() . 'administrator/orders');
+        }
+    }
 }

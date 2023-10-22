@@ -58,7 +58,7 @@
 								<?php } ?>
 							<?php } ?>
                             <td>
-                                <a href="<?= base_url() ;?>home/order<?= $data['invoice_code']; ?>" class="btn rounded-pill btn-sm btn-info"><i class="fa fa-eye"></i></a>
+                                <a href="<?= base_url() ;?>home/order/<?= $data['invoice_code']; ?>" class="btn rounded-pill btn-sm btn-info"><i class="fa fa-eye"></i></a>
                                 <?php if ($data['process'] == 0) { ?>
                                     <a href="<?= base_url(); ?>home/order<?= $data['invoice_code']; ?>" class="btn rounded-pill btn-sm btn-warning">Bayar</a>
                                 <?php } ?>
