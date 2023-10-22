@@ -17,6 +17,13 @@ class Payment extends CI_Controller {
     public $OngkirBelanjaOngkos = 0;
 
     public function index(){
+        
+    if (!$this->session->userdata('user')) {
+        // If the user is not logged in, redirect to base_url or the login page
+        echo '<script>alert("Kamu harus login dulu Sebelum Belanja");</script>';
+        redirect(base_url());
+        return;
+    }
         $data['title'] = 'Pembayaran - ' . $this->Settings_model->general()["app_name"];
         $data['css'] = 'payment';
         $data['setting'] = $this->Settings_model->getSetting();
