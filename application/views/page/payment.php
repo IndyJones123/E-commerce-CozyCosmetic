@@ -202,6 +202,14 @@
 
     $('#pay-button').click(function (event) {
         if (checkRequiredFields()) {
+            swal({
+            title: 'Loading',
+            text: 'Mohon tunggu...',
+            icon: 'info',
+            buttons: false,
+            closeOnClickOutside: false,
+            timer: 3000  // Atur waktu penutupan otomatis sesuai kebutuhan Anda
+            });
             if(invoice == null) {
                 $("#pay-create").attr("action", "<?=base_url()?>payment/succesfully");    
             }else {

@@ -91,6 +91,15 @@
 		const url = new URL(currentUrl);
 		const invoice = url.searchParams.get("invoice");
 		const transactionSuccess = document.getElementById('transaction-success');
+
+		swal({
+            title: 'Loading',
+            text: 'Mohon tunggu...',
+            icon: 'info',
+            buttons: false,
+            closeOnClickOutside: false,
+            timer: 2000  // Atur waktu penutupan otomatis sesuai kebutuhan Anda
+            });
 		
 		$(document).ready(function() {
         if (invoice !== null) {
